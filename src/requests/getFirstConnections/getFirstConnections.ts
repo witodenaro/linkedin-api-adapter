@@ -11,7 +11,7 @@ type Response = {
 }
 
 class FirstConnectionsFetcher {
-  _url: string = '/voyager/api/relationships/dash/connections'
+  private url: string = '/voyager/api/relationships/dash/connections'
 
   _getParams(start: number, count: number) {
     return {
@@ -27,7 +27,7 @@ class FirstConnectionsFetcher {
   async getFirstConnections(start: number, count: number) {
     const params = this._getParams(start, count)
 
-    const response = await linkedinApi.get<Response>(this._url, {
+    const response = await linkedinApi.get<Response>(this.url, {
       params,
     })
 

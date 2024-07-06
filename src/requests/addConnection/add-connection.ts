@@ -5,7 +5,7 @@ export interface Options {
 }
 
 class Connector {
-  _url: string = '/voyager/api/voyagerRelationshipsDashMemberRelationships'
+  private url: string = '/voyager/api/voyagerRelationshipsDashMemberRelationships'
 
   _getParams() {
     return {
@@ -26,7 +26,7 @@ class Connector {
     const params = this._getParams()
     const body = this._getBody(profileUrn, payload)
 
-    await linkedinApi.post(this._url, body, {
+    await linkedinApi.post(this.url, body, {
       params,
     })
   }

@@ -21,15 +21,13 @@
 </script>
 
 <script lang="ts">
-  import { localStorage, getProfile } from "../../src"
+  import { localStorage, getCurrentUserProfile } from "../../src"
   import type { ProfileElement } from "../../src/requests/getConnectionsCount"
 
   $: res = null as ProfileElement | null
 
   const handleClick = async () => {
-    const id = localStorage.getUserId();
-
-    const profile = await getProfile(`urn:li:fsd_profile:${id}`);
+    const profile = await getCurrentUserProfile();
 
     console.log(profile)
   }
