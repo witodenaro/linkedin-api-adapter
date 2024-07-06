@@ -1,10 +1,12 @@
 {
   "name": "linkedin-api-adapter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An API adapter for LinkedIn website",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node -r tsconfig-paths/register src/index.ts",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -12,5 +14,10 @@
   },
   "keywords": [],
   "author": "witodivaro <witodivaro@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.3.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.3"
+  }
 }
