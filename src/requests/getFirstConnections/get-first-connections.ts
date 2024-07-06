@@ -37,4 +37,4 @@ class FirstConnectionsFetcher {
 
 const fetcher = new FirstConnectionsFetcher()
 
-export const fetchFirstConnections = fetcher.getFirstConnections.bind(fetcher)
+export const getFirstConnections = fetcher.getFirstConnections.bind(fetcher)

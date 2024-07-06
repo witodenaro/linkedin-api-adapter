@@ -21,15 +21,20 @@
 </script>
 
 <script lang="ts">
-  import LinkedInAPIAdapter from "../../dist"
+  import { getConnectionsCount } from "../../src/requests/getConnectionsCount"
+  import type { ProfileElement } from "../../src/requests/getConnectionsCount"
 
-  const handleClick = () => {
+  $: res = null as ProfileElement | null
+
+  const handleClick = async () => {
+    res = await getConnectionsCount("mapocock")
   }
 </script>
 
 <div>
   <div style="background-color: white; padding: 40px;">
-    <button on:click={handleClick}
-      >A lie is a very poor way to say hello</button>
+    <button on:click={handleClick}>Get count</button>
+    <div>Connections: {res?.connections.paging.total || 'IDK'}</div>
+    <div>Followers: {res?.followingState.followerCount || 'IDK'}</div>
   </div>
 </div>

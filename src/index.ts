@@ -1,2 +1,3 @@
 export * from './requests/addConnection'
-export * from './requests/firstConnections'
+export * from './requests/getFirstConnections'
+export * from './requests/getConnectionsCount'
