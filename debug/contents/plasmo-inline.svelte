@@ -21,13 +21,13 @@
 </script>
 
 <script lang="ts">
-  import { getConnectionsCount } from "../../src/requests/getConnectionsCount"
+  import { getGeolocations } from "../../src/requests/getGeolocations"
   import type { ProfileElement } from "../../src/requests/getConnectionsCount"
 
   $: res = null as ProfileElement | null
 
   const handleClick = async () => {
-    res = await getConnectionsCount("mapocock")
+    res = await getGeolocations("hello")
   }
 </script>
 

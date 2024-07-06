@@ -1,2 +1,2 @@
-export { getConnectionsCount } from './get-connections-count'
+export { getConnectionsCount } from './getConnectionsCount'
 export * from './types'
