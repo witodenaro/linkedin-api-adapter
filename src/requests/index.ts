@@ -1,1 +1,1 @@
-export { default as FirstConnections } from './firstConnections/first-connections'
+export * as FirstConnections from './firstConnections';
