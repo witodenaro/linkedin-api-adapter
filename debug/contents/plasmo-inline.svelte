@@ -27,7 +27,12 @@
   $: res = null as ProfileElement | null
 
   const handleClick = async () => {
-    const profile = await searchPeople(0, 10);
+    const profile = await searchPeople({
+      start: 0,
+      count: 10,
+      keywords: 'Software',
+      geoUrns: ['105072130', '90009828']
+    });
 
     console.log(profile)
   }

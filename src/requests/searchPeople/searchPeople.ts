@@ -18,23 +18,13 @@ interface Params {
   count: number
   keywords: string
   geoUrns?: GeoUrn[]
-  companiesUrns?: string[]
 }
 
 export class PeopleSearcher {
   private url: string = '/voyager/api/graphql'
 
-  async searchPeople(
-    start: number,
-    count: number
-  ): Promise<SearchedPersonEntity[]> {
-    const params = this._getParams({
-      start,
-      count,
-      keywords: 'Software',
-      geoUrns: [],
-      companiesUrns: [],
-    })
+  async searchPeople(searchParams: Params): Promise<SearchedPersonEntity[]> {
+    const params = this._getParams(searchParams)
 
     const response = await linkedinApi.get<SearchPeopleResponse>(this.url, {
       params,
@@ -43,11 +33,17 @@ export class PeopleSearcher {
     return this.parseResponse(response.data)
   }
 
-  _getParams({ keywords, companiesUrns, count, start, geoUrns }: Params) {
-    const queryParameters = ExplicitUrlVariables.fromObject({
+  _getParams({ keywords, count, start, geoUrns }: Params) {
+    const queryParams: Record<string, string[]> = {
       network: [SearchNetwork.FIRST_CONNECTIONS],
       resultType: [SearchResultType.PEOPLE],
-    })
+    }
+
+    if (geoUrns) {
+      queryParams.geoUrn = geoUrns
+    }
+
+    const queryParameters = ExplicitUrlVariables.fromObject(queryParams)
 
     const query = UrlVariables.fromObject({
       flagshipSearchIntent: SearchIntent.SEARCH_SRP,
