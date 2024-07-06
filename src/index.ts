@@ -1,1 +1,2 @@
-export * from './requests'
+export * from './requests/addConnection'
+export * from './requests/firstConnections'

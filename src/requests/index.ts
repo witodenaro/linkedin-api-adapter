@@ -1,1 +1,0 @@
-export * as FirstConnections from './firstConnections';

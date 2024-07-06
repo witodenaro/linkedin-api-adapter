@@ -1,2 +1,2 @@
-export { default as FirstConnectionsFetcher } from './first-connections';
+export { fetchFirstConnections } from './first-connections';
 export * from './types';

@@ -21,10 +21,9 @@
 </script>
 
 <script lang="ts">
-  import { FirstConnectionsFetcher } from "../../src/requests/firstConnections"
+  import LinkedInAPIAdapter from "../../dist"
 
   const handleClick = () => {
-    FirstConnectionsFetcher.fetch(0, 10)
   }
 </script>
 

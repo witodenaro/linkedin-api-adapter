@@ -24,7 +24,7 @@ class FirstConnectionsFetcher {
     }
   }
 
-  async fetch(start: number, count: number) {
+  async getFirstConnections(start: number, count: number) {
     const params = this._getParams(start, count)
 
     const response = await linkedinApi.get<Response>(this._url, {
@@ -35,4 +35,6 @@ class FirstConnectionsFetcher {
   }
 }
 
-export default new FirstConnectionsFetcher()
+const fetcher = new FirstConnectionsFetcher()
+
+export const fetchFirstConnections = fetcher.getFirstConnections.bind(fetcher)
