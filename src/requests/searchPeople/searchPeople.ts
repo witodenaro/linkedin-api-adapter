@@ -3,16 +3,15 @@ import {
   UrlVariables,
 } from 'src/utils/queryBuilder/QueryBuilder'
 import linkedinApi from '../api/api'
-import { ConnectionElement, GeoUrn } from '../getFirstConnections'
-
-type Response = {
-  elements: ConnectionElement[]
-  paging: {
-    count: number
-    start: number
-    links: any[]
-  }
-}
+import { GeoUrn } from '../getFirstConnections'
+import {
+  SearchIntent,
+  SearchNetwork,
+  SearchPeopleResponse,
+  SearchRequestOrigin,
+  SearchResultType,
+  SearchedPersonEntity,
+} from './types'
 
 interface Params {
   start: number
@@ -22,29 +21,31 @@ interface Params {
   companiesUrns?: string[]
 }
 
-enum Network {
-  FIRST_CONNECTIONS = 'F',
-  SECOND_CONNECTIONS = 'S',
-}
-
-enum RequestOrigin {
-  GLOBAL_SEARCH_HEADER = 'GLOBAL_SEARCH_HEADER',
-}
-
-enum SearchResultType {
-  PEOPLE = 'PEOPLE',
-}
-
-enum SearchIntent {
-  SEARCH_SRP = 'SEARCH_SRP',
-}
-
 export class PeopleSearcher {
   private url: string = '/voyager/api/graphql'
 
+  async searchPeople(
+    start: number,
+    count: number
+  ): Promise<SearchedPersonEntity[]> {
+    const params = this._getParams({
+      start,
+      count,
+      keywords: 'Software',
+      geoUrns: [],
+      companiesUrns: [],
+    })
+
+    const response = await linkedinApi.get<SearchPeopleResponse>(this.url, {
+      params,
+    })
+
+    return this.parseResponse(response.data)
+  }
+
   _getParams({ keywords, companiesUrns, count, start, geoUrns }: Params) {
     const queryParameters = ExplicitUrlVariables.fromObject({
-      network: [Network.FIRST_CONNECTIONS],
+      network: [SearchNetwork.FIRST_CONNECTIONS],
       resultType: [SearchResultType.PEOPLE],
     })
 
@@ -56,7 +57,7 @@ export class PeopleSearcher {
     const variables = UrlVariables.fromObject({
       start,
       keywords,
-      origin: RequestOrigin.GLOBAL_SEARCH_HEADER,
+      origin: SearchRequestOrigin.GLOBAL_SEARCH_HEADER,
       query,
     })
 
@@ -66,20 +67,19 @@ export class PeopleSearcher {
     }
   }
 
-  async searchPeople(start: number, count: number) {
-    const params = this._getParams({
-      start,
-      count,
-      keywords: 'Software',
-      geoUrns: [],
-      companiesUrns: [],
-    })
+  parseResponse(response: SearchPeopleResponse): SearchedPersonEntity[] {
+    const { elements: clusters } = response.data.searchDashClustersByAll
+    const peopleCluster = clusters[1]
 
-    const response = await linkedinApi.get<Response>(this.url, {
-      params,
-    })
+    const peopleAndSpam = peopleCluster.items.map(
+      (item) => item.item.entityResult
+    )
 
-    return response.data.elements
+    const people = peopleAndSpam.filter((item): item is SearchedPersonEntity =>
+      Boolean(item)
+    )
+
+    return people
   }
 }
 
