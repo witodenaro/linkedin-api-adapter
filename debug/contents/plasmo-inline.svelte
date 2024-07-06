@@ -21,14 +21,17 @@
 </script>
 
 <script lang="ts">
-  import { getGeolocations } from "../../src/requests/getGeolocations"
+  import { localStorage, getProfile } from "../../src"
   import type { ProfileElement } from "../../src/requests/getConnectionsCount"
 
   $: res = null as ProfileElement | null
 
   const handleClick = async () => {
-    res = await getGeolocations("Barselona")
-    console.log(res)
+    const id = localStorage.getUserId();
+
+    const profile = await getProfile(`urn:li:fsd_profile:${id}`);
+
+    console.log(profile)
   }
 </script>
 

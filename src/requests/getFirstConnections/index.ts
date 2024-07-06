@@ -1,2 +1,2 @@
-export { getFirstConnections } from './get-first-connections';
+export { getFirstConnections } from './getFirstConnections';
 export * from './types';

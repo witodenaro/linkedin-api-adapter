@@ -37,3 +37,5 @@ export interface ImageReferenceArtifact {
   expiresAt: number;
   height: number;
 }
+
+export type GeoUrn = string;
