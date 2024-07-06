@@ -1,4 +1,7 @@
-import { ExplicitUrlVariables, UrlVariables } from 'src/utils/queryBuilder/QueryBuilder'
+import {
+  ExplicitUrlVariables,
+  UrlVariables,
+} from 'src/utils/queryBuilder/QueryBuilder'
 import linkedinApi from '../api/api'
 import { ConnectionElement, GeoUrn } from '../getFirstConnections'
 
@@ -20,8 +23,12 @@ interface Params {
 }
 
 enum Network {
-  F = 'F',
-  S = 'S',
+  FIRST_CONNECTIONS = 'F',
+  SECOND_CONNECTIONS = 'S',
+}
+
+enum RequestOrigin {
+  GLOBAL_SEARCH_HEADER = 'GLOBAL_SEARCH_HEADER',
 }
 
 enum SearchResultType {
@@ -36,19 +43,21 @@ export class PeopleSearcher {
   private url: string = '/voyager/api/graphql'
 
   _getParams({ keywords, companiesUrns, count, start, geoUrns }: Params) {
-    const query = ExplicitUrlVariables.fromObject({
-      network: [Network.F],
+    const queryParameters = ExplicitUrlVariables.fromObject({
+      network: [Network.FIRST_CONNECTIONS],
       resultType: [SearchResultType.PEOPLE],
+    })
+
+    const query = UrlVariables.fromObject({
+      flagshipSearchIntent: SearchIntent.SEARCH_SRP,
+      queryParameters,
     })
 
     const variables = UrlVariables.fromObject({
       start,
       keywords,
-      origin: 'GLOBAL_SEARCH_HEADER',
-      query: UrlVariables.fromObject({
-        flagshipSearchIntent: SearchIntent.SEARCH_SRP,
-        queryParameters: query,
-      }),
+      origin: RequestOrigin.GLOBAL_SEARCH_HEADER,
+      query,
     })
 
     return {

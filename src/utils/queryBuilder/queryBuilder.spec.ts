@@ -1,7 +1,7 @@
 import { expect, test, describe } from 'vitest'
 import { ExplicitUrlVariables, UrlVariables } from './QueryBuilder'
 
-describe('QueryString', () => {
+describe('ExplicitUrlVariables', () => {
   test('Returns concatenated query string', () => {
     const query = ExplicitUrlVariables.fromObject({
       network: ['F'],
@@ -11,7 +11,7 @@ describe('QueryString', () => {
   })
 })
 
-describe('QueryVariables', () => {
+describe('UrlVariables', () => {
   test('Returns concatenated query variables', () => {
     const variables = UrlVariables.fromObject({
       start: 0,
