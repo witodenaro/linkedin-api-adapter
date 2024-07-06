@@ -19,3 +19,10 @@ export type GeolocationElement = {
     }
   }
 }
+
+export enum GeolocationTypes {
+  MARKET_AREA = 'MARKET_AREA',
+  COUNTRY_REGION = 'COUNTRY_REGION',
+  ADMIN_DIVISION_1 = 'ADMIN_DIVISION_1',
+  CITY = 'CITY',
+}

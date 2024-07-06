@@ -1,12 +1,12 @@
 import linkedinApi from '../api/api'
-import { GeolocationElement, GetGeolocationsResponse } from './types'
+import { GeolocationElement, GeolocationTypes, GetGeolocationsResponse } from './types'
 
 class GeolocationsFetcher {
   private url: string = '/voyager/api/graphql'
 
   private getParams(keywords: string) {
     return {
-      variables: `(keywords:${keywords},query:(typeaheadFilterQuery:(geoSearchTypes:List(MARKET_AREA,COUNTRY_REGION,ADMIN_DIVISION_1,CITY))),type:GEO)`,
+      variables: `(keywords:${keywords},query:(typeaheadFilterQuery:(geoSearchTypes:List(${GeolocationTypes.COUNTRY_REGION}))),type:GEO)`,
       queryId:
         'voyagerSearchDashReusableTypeahead.1043b2d44b336397a7560ac3243a89a0',
     }
