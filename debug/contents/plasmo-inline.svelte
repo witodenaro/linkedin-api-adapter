@@ -21,13 +21,13 @@
 </script>
 
 <script lang="ts">
-  import { localStorage, getCurrentUserProfile } from "../../src"
+  import { localStorage, getCurrentUserProfile, searchPeople } from "../../src"
   import type { ProfileElement } from "../../src/requests/getConnectionsCount"
 
   $: res = null as ProfileElement | null
 
   const handleClick = async () => {
-    const profile = await getCurrentUserProfile();
+    const profile = await searchPeople(0, 10);
 
     console.log(profile)
   }
