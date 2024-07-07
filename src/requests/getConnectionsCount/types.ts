@@ -1,4 +1,4 @@
-import { CountryCodes } from 'src/types/CountryCodes'
+import { CountryCodes } from '../../types/CountryCodes'
 
 export type Response = {
   data: {

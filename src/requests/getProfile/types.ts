@@ -1,4 +1,4 @@
-import { CountryCodes, Languages } from 'src/types/CountryCodes'
+import { CountryCodes, Languages } from '../../types/CountryCodes'
 import { GeoUrn } from '../getFirstConnections'
 
 export interface UserProfile {

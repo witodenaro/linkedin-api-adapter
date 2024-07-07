@@ -1,7 +1,7 @@
 import {
   ExplicitUrlVariables,
   UrlVariables,
-} from 'src/utils/queryBuilder/QueryBuilder'
+} from '../../utils/queryBuilder/QueryBuilder'
 import linkedinApi from '../api/api'
 import { GeoUrn } from '../getFirstConnections'
 import {
