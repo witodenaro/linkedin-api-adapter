@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "vitest",
+    "prebuild": "vitest run",
     "dev": "ts-node -r tsconfig-paths/register src/index.ts",
     "build": "tsc"
   },

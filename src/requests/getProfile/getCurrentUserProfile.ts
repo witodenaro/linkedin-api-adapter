@@ -1,5 +1,5 @@
-import { localStorage } from 'src/localStorage'
-import { ProfileUrn } from 'src/utils/urn'
+import { localStorage } from '../../localStorage'
+import { ProfileUrn } from '../../utils/urn'
 import { getProfile } from './getProfile'
 
 class CurrentUserProfileGetter {
